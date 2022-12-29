@@ -1,0 +1,4 @@
+transformers[torch]==4.25.1
+fastapi==0.88.0
+mangum==0.17.0
+torch==1.13.0
