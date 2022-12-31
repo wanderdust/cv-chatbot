@@ -1,5 +1,4 @@
 import random
-from dataclasses import dataclass
 
 from transformers import pipeline
 
@@ -15,8 +14,8 @@ class ChatBot:
     def load_model(self):
         return pipeline(
             "question-answering",
-            model="models/roberta-base-squad2",
-            tokenizer="models/roberta-base-squad2",
+            model="models/minilm-uncased-squad2",
+            tokenizer="models/minilm-uncased-squad2",
         )
 
     def predict(self, question, context_name="pablo_context"):
