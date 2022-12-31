@@ -1,5 +1,8 @@
-download_roberta:
-	git lfs install && git clone https://huggingface.co/deepset/roberta-base-squad2 src/models/roberta-base-squad2
+download_model:
+	git lfs install && git clone https://huggingface.co/deepset/minilm-uncased-squad2 src/models/minilm-uncased-squad2
 
-download_classifier:
-	git lfs install && git clone https://huggingface.co/facebook/bart-large-mnli src/models/bart-zero-shot-classifier
+src/models/minilm-uncased-squad2/config.json:
+	make download_model
+
+build: src/models/minilm-uncased-squad2/config.json
+	docker build -t pablo-cv-chatbot .
