@@ -21,9 +21,14 @@ resource "aws_lambda_function" "cv_chatbot" {
   architectures = ["arm64"]
   environment {
     variables = {
-      TRANSFORMERS_CACHE = ""
+      TRANSFORMERS_CACHE = "mnt/data"
 
     }
+  }
+
+  file_system_config {
+    arn              = aws_efs_access_point.cv_chatbot_efs_ap.arn
+    local_mount_path = "/mnt/data"
   }
 
   role = aws_iam_role.lambda_exec.arn
@@ -116,4 +121,29 @@ resource "aws_lambda_permission" "api_gw" {
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_apigatewayv2_api.lambda.execution_arn}/*/*"
+}
+
+
+# EFS
+resource "aws_efs_file_system" "cv_chatbot_efs" {}
+
+resource "aws_efs_access_point" "cv_chatbot_efs_ap" {
+  file_system_id = aws_efs_file_system.cv_chatbot_efs.id
+  root_directory {
+    path = "/data"
+    creation_info {
+      owner_gid   = 1000
+      owner_uid   = 1000
+      permissions = "0777"
+    }
+  }
+  posix_user {
+    uid = 1001
+    gid = 1001
+  }
+}
+
+resource "aws_efs_mount_target" "mount_target" {
+  file_system_id = aws_efs_file_system.cv_chatbot_efs.id
+  subnet_id      = "subnet-0710c1187011bcfe7"
 }
