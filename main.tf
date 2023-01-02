@@ -19,17 +19,25 @@ resource "aws_lambda_function" "cv_chatbot" {
   package_type  = "Image"
   image_uri     = var.image_uri
   architectures = ["arm64"]
+  timeout       = 300
+  memory_size   = 512
   environment {
     variables = {
-      TRANSFORMERS_CACHE = "mnt/data"
+      TRANSFORMERS_CACHE = "/mnt/hf_models_cache"
 
     }
   }
 
   file_system_config {
     arn              = aws_efs_access_point.cv_chatbot_efs_ap.arn
-    local_mount_path = "/mnt/data"
+    local_mount_path = "/mnt/hf_models_cache"
   }
+
+  vpc_config {
+    subnet_ids         = ["subnet-0710c1187011bcfe7"]
+    security_group_ids = ["sg-09399de201c3b4831"]
+  }
+
 
   role = aws_iam_role.lambda_exec.arn
 }
@@ -43,15 +51,37 @@ resource "aws_cloudwatch_log_group" "cv_chatbot" {
 resource "aws_iam_role" "lambda_exec" {
   name = "serverless_lambda"
 
+  inline_policy {
+    name = "lambda_create_network_interface"
+    policy = jsonencode({
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Action = [
+            "ec2:DescribeNetworkInterfaces",
+            "ec2:CreateNetworkInterface",
+            "ec2:DeleteNetworkInterface",
+            "ec2:DescribeInstances",
+            "ec2:AttachNetworkInterface",
+            "elasticfilesystem:ClientMount",
+            "elasticfilesystem:ClientWrite"
+          ]
+          Effect   = "Allow"
+          Resource = "*"
+        },
+      ]
+    })
+  }
+
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Sid    = ""
-      Principal = {
-        Service = "lambda.amazonaws.com"
-      }
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Principal = {
+          Service = "lambda.amazonaws.com"
+        }
       }
     ]
   })
@@ -130,11 +160,11 @@ resource "aws_efs_file_system" "cv_chatbot_efs" {}
 resource "aws_efs_access_point" "cv_chatbot_efs_ap" {
   file_system_id = aws_efs_file_system.cv_chatbot_efs.id
   root_directory {
-    path = "/data"
+    path = "/exports/models"
     creation_info {
-      owner_gid   = 1000
-      owner_uid   = 1000
-      permissions = "0777"
+      owner_gid   = 1001
+      owner_uid   = 1001
+      permissions = "750"
     }
   }
   posix_user {
