@@ -96,6 +96,12 @@ resource "aws_iam_role_policy_attachment" "lambda_policy" {
 resource "aws_apigatewayv2_api" "lambda" {
   name          = "serverless_lambda_gw"
   protocol_type = "HTTP"
+  cors_configuration {
+    allow_origins = ["https://pablolopez.tech", "http://localhost:3000"]
+    allow_methods = ["GET"]
+    allow_headers = ["content-type"]
+    max_age = 300
+  }
 }
 
 resource "aws_apigatewayv2_stage" "lambda" {
