@@ -19,3 +19,7 @@ def handler(event, context):
         return response(chatbot.predict(message))
     except Exception:
         raise Exception(traceback.format_exc())
+
+
+if __name__ == "__main__":
+    print(handler({"body": '{"message": "What does he do at Zonda?"}'}, None))
