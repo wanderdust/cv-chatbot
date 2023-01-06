@@ -11,7 +11,7 @@ def response(response):
 
 
 def handler(event, context):
-    message = json.loads(event["body"])["message"]
+    message = event["pathParameters"]["message"]
     try:
         if GreetingDetector.is_greeting(message):
             return response(GreetingDetector.default_response())
@@ -22,4 +22,4 @@ def handler(event, context):
 
 
 if __name__ == "__main__":
-    print(handler({"body": '{"message": "What does he do at Zonda?"}'}, None))
+    print(handler({"pathParameters": {"message": "What does he do at Zonda?"}}, None))
