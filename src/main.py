@@ -11,7 +11,7 @@ def response(response):
 
 
 def handler(event, context):
-    message = event["pathParameters"]["message"]
+    message = event["queryStringParameters"]["message"]
     try:
         if GreetingDetector.is_greeting(message):
             return response(GreetingDetector.default_response())
@@ -22,4 +22,4 @@ def handler(event, context):
 
 
 if __name__ == "__main__":
-    print(handler({"pathParameters": {"message": "What does he do at Zonda?"}}, None))
+    print(handler({"queryStringParameters": {"message": "What does he do at Zonda?"}}, None))
