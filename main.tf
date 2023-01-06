@@ -97,7 +97,7 @@ resource "aws_apigatewayv2_api" "lambda" {
   name          = "cv_chatbot_gw"
   protocol_type = "HTTP"
   cors_configuration {
-    allow_origins = ["*"]
+    allow_origins = ["http://localhost:3000/,https://pablolopez.tech/"]
     allow_methods = ["OPTIONS", "GET", "POST"]
     allow_headers = ["Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token"]
     max_age       = 400
