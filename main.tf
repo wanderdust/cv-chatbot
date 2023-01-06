@@ -94,13 +94,13 @@ resource "aws_iam_role_policy_attachment" "lambda_policy" {
 
 
 resource "aws_apigatewayv2_api" "lambda" {
-  name          = "serverless_lambda_gw"
+  name          = "cv_chatbot_gw"
   protocol_type = "HTTP"
   cors_configuration {
-    allow_origins = ["https://pablolopez.tech", "http://localhost:3000"]
-    allow_methods = ["GET"]
-    allow_headers = ["content-type"]
-    max_age = 300
+    allow_origins = ["*"]
+    allow_methods = ["OPTIONS", "GET", "POST"]
+    allow_headers = ["Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token"]
+    max_age       = 400
   }
 }
 
@@ -140,8 +140,17 @@ resource "aws_apigatewayv2_integration" "cv_chatbot" {
 resource "aws_apigatewayv2_route" "cv_chatbot" {
   api_id = aws_apigatewayv2_api.lambda.id
 
-  route_key = "GET /chat"
-  target    = "integrations/${aws_apigatewayv2_integration.cv_chatbot.id}"
+  route_key          = "GET /chat"
+  target             = "integrations/${aws_apigatewayv2_integration.cv_chatbot.id}"
+  authorization_type = "NONE"
+}
+
+resource "aws_apigatewayv2_route" "cv_chatbot_options" {
+  api_id = aws_apigatewayv2_api.lambda.id
+
+  route_key          = "OPTIONS /chat"
+  target             = "integrations/${aws_apigatewayv2_integration.cv_chatbot.id}"
+  authorization_type = "NONE"
 }
 
 resource "aws_cloudwatch_log_group" "api_gw" {
