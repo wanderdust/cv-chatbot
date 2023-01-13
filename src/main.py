@@ -6,14 +6,11 @@ from models import ChatBot, GreetingDetector
 chatbot = ChatBot()
 
 
-def response(response):
+def response(response, status_code=200):
     return {
-        "statusCode": 200,
+        "statusCode": status_code,
         "headers": {
             "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Credentials": True,
-            "Access-Control-Allow-Headers": "Content-Type",
-            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
         },
         "body": json.dumps(response),
     }
