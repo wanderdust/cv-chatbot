@@ -11,6 +11,7 @@ def response(response, status_code=200):
         "statusCode": status_code,
         "headers": {
             "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": True,
         },
         "body": json.dumps(response),
     }
