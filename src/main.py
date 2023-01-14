@@ -10,8 +10,9 @@ def response(response, status_code=200):
     return {
         "statusCode": status_code,
         "headers": {
+            "Access-Control-Allow-Headers": "Content-Type",
             "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Credentials": True,
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
         },
         "body": json.dumps(response),
     }

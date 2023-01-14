@@ -109,7 +109,7 @@ resource "aws_api_gateway_resource" "proxy" {
 resource "aws_api_gateway_method" "proxy" {
   rest_api_id   = aws_api_gateway_rest_api.cv_chatbot.id
   resource_id   = aws_api_gateway_resource.proxy.id
-  http_method   = "ANY"
+  http_method   = "GET"
   authorization = "NONE"
 }
 
@@ -140,6 +140,8 @@ resource "aws_lambda_permission" "allow_api_gateway" {
   # within the specified API Gateway.
   source_arn = "${aws_api_gateway_rest_api.cv_chatbot.execution_arn}/*/*"
 }
+
+
 
 # EFS
 resource "aws_efs_file_system" "cv_chatbot_efs" {}
