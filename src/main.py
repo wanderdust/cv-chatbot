@@ -1,9 +1,10 @@
 import json
 import traceback
 
-from models import ChatBot, GreetingDetector
+from models import ChatBot, IntentDetector
 
 chatbot = ChatBot()
+intent_detector = IntentDetector()
 
 
 def response(response, status_code=200):
@@ -21,13 +22,13 @@ def response(response, status_code=200):
 def handler(event, context):
     message = event["queryStringParameters"]["message"]
     try:
-        if GreetingDetector.is_greeting(message):
-            return response(GreetingDetector.default_response())
-
-        return response(chatbot.predict(message))
+        intent = intent_detector(message)
+        return response(chatbot(message, intent))
     except Exception:
         raise Exception(traceback.format_exc())
 
 
 if __name__ == "__main__":
-    print(handler({"queryStringParameters": {"message": "What does he do at Zonda?"}}, None))
+    question = "What are his hobbies?"
+    res = handler({"queryStringParameters": {"message": question}}, None)
+    print(res["body"])
