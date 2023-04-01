@@ -8,5 +8,11 @@ variable "lambda_name" {
 variable "image_uri" {
   description = "The name of the ECR repository"
   type        = string
-  default     = "236212633992.dkr.ecr.eu-west-1.amazonaws.com/pablo-cv-chatbot:latest"
+  default     = "236212633992.dkr.ecr.eu-west-1.amazonaws.com/pablo-cv-chatbot:1.0"
+}
+
+
+variable "api_key" {
+  description = "The API key for the chatbot"
+  type        = string
 }
