@@ -1,10 +1,19 @@
 import json
 import traceback
 
-from models import ChatBot, IntentDetector
+from fastapi import Depends, FastAPI
+from fastapi.responses import JSONResponse
+from mangum import Mangum
+from pydantic import BaseModel
 
+from models import ChatBot
+
+app = FastAPI()
 chatbot = ChatBot()
-intent_detector = IntentDetector()
+
+
+class Message(BaseModel):
+    message: str
 
 
 def response(response, status_code=200):
@@ -19,16 +28,19 @@ def response(response, status_code=200):
     }
 
 
-def handler(event, context):
-    message = event["queryStringParameters"]["message"]
+@app.get("/chat")
+def chat(message: Message = Depends()):
     try:
-        intent = intent_detector(message)
-        return response(chatbot(message, intent))
+        response = chatbot(message.message)
+        headers = {
+            "Access-Control-Allow-Headers": "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+        }
+        return JSONResponse(content=response, headers=headers)
+
     except Exception:
         raise Exception(traceback.format_exc())
 
 
-if __name__ == "__main__":
-    question = "What are his hobbies?"
-    res = handler({"queryStringParameters": {"message": question}}, None)
-    print(res["body"])
+handler = Mangum(app)
