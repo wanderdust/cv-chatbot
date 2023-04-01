@@ -93,6 +93,7 @@ resource "aws_iam_role_policy_attachment" "lambda_policy" {
 resource "aws_api_gateway_rest_api" "cv_chatbot" {
   name        = "cv_chatbot"
   description = "cv_chatbot"
+
 }
 
 resource "aws_api_gateway_resource" "proxy" {
@@ -134,4 +135,29 @@ resource "aws_lambda_permission" "allow_api_gateway" {
   # The /*/* portion grants access from any method on any resource
   # within the specified API Gateway.
   source_arn = "${aws_api_gateway_rest_api.cv_chatbot.execution_arn}/*/*"
+}
+
+resource "aws_api_gateway_method_response" "response_200" {
+  rest_api_id = aws_api_gateway_rest_api.cv_chatbot.id
+  resource_id = aws_api_gateway_resource.proxy.id
+  http_method = aws_api_gateway_method.proxy.http_method
+  status_code = "200"
+
+  response_models = {
+    "application/json" = "Empty"
+  }
+}
+
+resource "aws_api_gateway_integration_response" "response_200" {
+  depends_on = [
+    aws_api_gateway_integration.lambda,
+  ]
+  rest_api_id = aws_api_gateway_rest_api.cv_chatbot.id
+  resource_id = aws_api_gateway_resource.proxy.id
+  http_method = aws_api_gateway_method.proxy.http_method
+  status_code = aws_api_gateway_method_response.response_200.status_code
+
+  response_templates = {
+    "application/json" = ""
+  }
 }
