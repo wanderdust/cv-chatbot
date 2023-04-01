@@ -13,31 +13,26 @@ provider "aws" {
   region = "eu-west-1"
 }
 
-resource "aws_lambda_function" "cv_chatbot" {
-  function_name = var.lambda_name
+data "archive_file" "cv_chatbot" {
+  type        = "zip"
+  source_dir  = "../build"
+  output_path = "../cv_chatbot.zip"
+}
 
-  package_type  = "Image"
-  image_uri     = var.image_uri
-  architectures = ["x86_64"]
-  timeout       = 60
-  memory_size   = 512
+resource "aws_lambda_function" "cv_chatbot" {
+  function_name    = var.lambda_name
+  runtime          = "python3.8"
+  handler          = "main.handler"
+  filename         = data.archive_file.cv_chatbot.output_path
+  source_code_hash = data.archive_file.cv_chatbot.output_base64sha256
+
+  timeout = 20
   environment {
     variables = {
-      TRANSFORMERS_CACHE = "/mnt/hf_models_cache"
+      OPENAI_API_KEY = var.api_key
 
     }
   }
-
-  file_system_config {
-    arn              = aws_efs_access_point.cv_chatbot_efs_ap.arn
-    local_mount_path = "/mnt/hf_models_cache"
-  }
-
-  vpc_config {
-    subnet_ids         = ["subnet-0710c1187011bcfe7"]
-    security_group_ids = ["sg-09399de201c3b4831"]
-  }
-
 
   role = aws_iam_role.lambda_exec.arn
 }
@@ -139,30 +134,4 @@ resource "aws_lambda_permission" "allow_api_gateway" {
   # The /*/* portion grants access from any method on any resource
   # within the specified API Gateway.
   source_arn = "${aws_api_gateway_rest_api.cv_chatbot.execution_arn}/*/*"
-}
-
-
-
-# EFS
-resource "aws_efs_file_system" "cv_chatbot_efs" {}
-
-resource "aws_efs_access_point" "cv_chatbot_efs_ap" {
-  file_system_id = aws_efs_file_system.cv_chatbot_efs.id
-  root_directory {
-    path = "/exports/models"
-    creation_info {
-      owner_gid   = 1001
-      owner_uid   = 1001
-      permissions = "750"
-    }
-  }
-  posix_user {
-    uid = 1001
-    gid = 1001
-  }
-}
-
-resource "aws_efs_mount_target" "mount_target" {
-  file_system_id = aws_efs_file_system.cv_chatbot_efs.id
-  subnet_id      = "subnet-0710c1187011bcfe7"
 }
