@@ -11,13 +11,12 @@
             "module": "uvicorn",
             "args": [
                 "main:app",
-                "--reload",
                 "--port",
-                "3000"
+                "3000",
             ],
+            "cwd": "${workspaceFolder}/src",
             "jinja": true,
-            "justMyCode": true,
-            "cwd": "${workspaceFolder}/src"
+            "justMyCode": true
         }
     ]
 }
