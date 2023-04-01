@@ -212,3 +212,7 @@ terraform.rc
 
 # Models directory
 models/
+
+# Zip files
+build/
+*.zip
