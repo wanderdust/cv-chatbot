@@ -1,1 +1,116 @@
-Pablo Lopez Santori is a Machine Learning Engineer based in Glasgow, Scotland. He was born in Spain. His current role is Machine Learning Engineer at Zonda Satellite. At zonda he built an end-to-end MLOps pipeline, where he automated the process of deploying machine learning models to production. His best skills are AWS, Python, Pytorch, Terraform and Docker. Previously, his role was Data Scientist at UserTesting. At UserTesting he developed an unsupervised model using NLP to classify customer feedback. He also built a web interface using React to display the results. Pablo studied a MSc (Masters) in Artificial Intelligence with Speech and Multimodal Interaction from Heriot-Watt University in Edinburgh. At Heriot Watt, he graduated with distinction and learned about statistics and conversational agents. He has also studied a degree in Commerce from Complutense University of Madrid. At Univeristy Complutense of Madrid he received an Erasmus+ grant to study in Dusseldorf. At Univeristy Complutense he also completed an internship as a Sales Executive in Mygon. In his free time, Pablo's other projects are using reinforcement learning to play Atari games, building a multimodal chatbot, and deploying a smart contract to Ethereum. His front end knowledge is React, Redux, Next.js, Astro, CSS & node.js. Pablo's LinkedIn is in/lopezsantoripablo. Pablo's email is pablo.lopez.santori@gmail.com. His phone is +44 7851702981. His GitHub account is www.github.com/wanderdust and his hobbies include tennis, reading, video games, and building apps.
+This is Pablo's CV:
+Pablo Lopez Santori
+
+Glasgow | +44 7851702981 | pablo.lopez.santori@gmail.com
+linkedin.com/in/lopezsantoripablo | github.com/wanderdust | pablolopez.tech
+
+As a Machine Learning Engineer with expertise in MLOps and data engineering
+I have streamlined the process of extracting value from data and deploying models to
+production. I have a track record of mentoring and managing interns, collaborating with non-technical
+stakeholders to write initiative documents, and ensuring well-defined model requirements. My versatility is
+demonstrated by my experience with NLP, deep learning models, DevOps, and front end technologies.
+
+Work Experience
+
+MLOps Engineer 01/2022 - today
+Zonda Satellite, Glasgow (remote)
+Built data engineering pipelines to transform raw data in Snowflake into clean data, which was
+then materialised to a MongoDB online store using Airflow, DBT, Terraform and AWS batch. By
+having automation and observability it allowed the team to focus on building products while the
+pipelines periodically updated the data, enabling faster value extraction from the data by the Data
+Science team.
+Built infrastructure to streamline the model deployment to production using AWS CodePipeline for
+CI/CD, Sagemaker and MLFlow and deployed an average of one model per quarter.
+Deployed machine learning models as APIs using FastApi, AWS Lambda, ElasticBeanstalk and
+Terraform with automatic documentation to enable other teams to easily integrate the models.
+Setup a monitoring server using Grafana to track internal infrastructure including API performance
+and data pipelines execution. By implementing alerts, I facilitated the team in promptly identifying
+and resolving any latency issues or a high number of 400/500 errors.
+Managed and mentored an intern working on a project involving GANs and Stable Diffusion
+models for 3D object generation.
+
+Collaborated extensively with the Product team to ensure that model requirements were well-
+defined, and regularly communicated progress and insights to non-technical stakeholders. On top
+
+of this I also coordinated with my team to ensure timely completion of critical tasks.
+
+Machine Learning Engineer 11/2020 - 01/2022
+Zonda Satellite, Glasgow (remote)
+Improved construction activity tracking from satellite imagery using MaskRCNN in PyTorch,
+Docker and Python, from 0.3 to 0.7 MAP score by using image transforms, using augmentations,
+tuning hyper parameters, experimenting with the loss function, using ensemble models and
+labelling new data.
+This improvement lead to saving thousands by enabling tracking construction activity from
+satellite imagery rather than having to send drivers to construction sites across the USA.
+Implemented a novel image over-sampling technique to prevent overfitting during training by
+breaking down images in the dataset into 8x8 squares containing features and generating new
+images by combining squares from every image. MLFlow was used to track experiments and
+easily collaborate with the team.
+Deployed deep learning models to AWS batch to run offline predictions. All of the model
+repositories were deployed using Docker and CI/CD with Terraform and AWS CodePipeline.
+Built front end applications using React and Dash as a way to showcase the models to non
+technical stakeholders in an engaging and interactive way.
+Conducted multiple tech Retrospectives and tech Stand-ups and refined the team's project
+management process by introducing KANBAN methodology, enabling more flexibility and
+reducing time spent on planning by eliminating strict time-boxed sprints.
+
+Data Science Internship 06/2020 - 08/2020
+UserTesting, Edinburgh (remote)
+During my Data Science Internship at UserTesting, I developed an unsupervised model using
+NLP as part of my master's dissertation. This model successfully flagged participants who
+answered screener questions inconsistently, which contributed to the improvement of overall data
+quality and increased the efficiency of the research process.
+
+Education
+
+MSc Artificial Intelligence with Speech and Multimodal Interaction 08/2019 - 08/2020
+Heriot-Watt University, Edinburgh, Scotland
+This MSc provided me with valuable knowledge and skills in the field of Natural Language
+Processing, Understanding and Generation. During my studies, I built a multimodal chatbot using
+Furhat for the bot’s interface, Rasa for Natural Language Understanding, and Neo4J for the data
+mapping. In this project, I also created a dataset and trained an LSTM model for next word
+prediction. Through this project, I gained hands-on experience in building reliable AI assistants
+with natural human-like interactions, which has been instrumental in my understanding of the
+challenges in this field.
+
+Degree in Commerce 08/2011 - 06/2016
+Complutense University of Madrid
+Acquired a strong understanding of business strategy that allows me to effectively position and
+communicate the value of an ML project to stakeholders.
+Worked as a Sales Executive in Mygon (Lisbon) gaining skills in persuasive communication, able
+to influence and persuade others to adopt new tools, processes, or workflows.
+
+Other
+
+Speaker on EdAI: Edinburgh’s Meet-Up for AI Builders 02/2023
+At this event I spoke about Generative AI and Stable Diffusion Models to a mixed audience of technical
+and non-technical people at CodeClan.
+Patents and Publications: “Systems and methods of property valuation” 08/2022
+Co-inventor of "Systems and methods of property valuation" patent, demonstrating expertise in real estate
+valuation and innovative problem-solving abilities.
+
+Projects
+
+CV Chatbot
+https://pablolopez.tech/
+The project is a CV Chatbot that uses OpenAIs GPT3 model to answer questions about Pablo's CV. The model API is deployed in
+AWS using Terraform, and AWS Lambda, with its only cost being the OPENAI API.
+Buy Me a Coffee using web3
+https://buymeacoffee-dapp.netlify.app/
+Developed app that leverages blockchain technology to facilitate small donations via a smart
+contract on the Ethereum Blockchain using Next.js and Hardhat.
+Playing Atari games with Reinforcement Learning
+https://git.io/fjxDS
+Implemented a Deep Q-Learning algorithm with Experience Replay, Fixed Q-Targets and Dueling
+Networks using PyTorch, which enabled an agent to learn how to play the game.
+Mongol Rally
+https://www.youtube.com/watch?v=unkb7_9e-EM
+I participated in the Mongol Rally in 2016. A 16,000 km road trip from Madrid to Mongolia. We raised 1k for the charity
+APIC pandora.
+
+Hobbies
+
+I enjoy reading. Particularly long fantasy sagas such as "A song of Ice and Fire", "The Gentleman Bastards", 
+"The Stormlight Archive" or "The King Killer Chronicles" amongs others. My favorite book is "Bajo los cielos de
+asia" by Iñaki Ochoa de Olza.
+I also enjoy building software projects such as this website or BillyBot and playing tennis.
