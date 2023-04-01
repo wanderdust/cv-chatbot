@@ -143,9 +143,20 @@ resource "aws_api_gateway_method_response" "response_200" {
   http_method = aws_api_gateway_method.proxy.http_method
   status_code = "200"
 
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin"  = true,
+    "method.response.header.Access-Control-Allow-Methods" = true,
+    "method.response.header.Access-Control-Allow-Headers" = true
+  }
+
   response_models = {
     "application/json" = "Empty"
   }
+
+  depends_on = [
+    aws_api_gateway_method.proxy
+  ]
+
 }
 
 resource "aws_api_gateway_integration_response" "response_200" {
@@ -156,6 +167,12 @@ resource "aws_api_gateway_integration_response" "response_200" {
   resource_id = aws_api_gateway_resource.proxy.id
   http_method = aws_api_gateway_method.proxy.http_method
   status_code = aws_api_gateway_method_response.response_200.status_code
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin"  = "'https://pablolopez.tech'",
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Requested-With'",
+    "method.response.header.Access-Control-Allow-Methods" = "'GET,OPTIONS,POST,PUT'"
+  }
 
   response_templates = {
     "application/json" = ""
