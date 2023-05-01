@@ -12,7 +12,17 @@ demonstrated by my experience with NLP, deep learning models, DevOps, and front 
 
 Work Experience
 
-MLOps Engineer 01/2022 - today
+MLOps Engineer Consultant 04/2023 - 06/2023
+KLU (remote)
+Worked with an early stage startup to help them establish best practices for model training and
+deployment. I built an ML/MLOps pipeline in AWS that reduced the model deployment process to
+minutes. The pipeline was built using AWS codepipeline,  Sagemaker and Terraform.
+Trained and deployed LLMs on a custom datasets. I benchmarked the model trained on different
+parameters and data sizes to establish the most efficient model for production based on task
+performance and cost.
+
+
+Machine Learning & MLOps Engineer 01/2022 - today
 Zonda Satellite, Glasgow (remote)
 Built data engineering pipelines to transform raw data in Snowflake into clean data, which was
 then materialised to a MongoDB online store using Airflow, DBT, Terraform and AWS batch. By
